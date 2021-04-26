@@ -10,8 +10,4 @@ def est_D(T, m):
     d_1 = alpha_1 * np.matmul(np.swapaxes(e_1, 3, 2), e_1)
     d_2 = alpha_2 * np.matmul(np.swapaxes(e_2, 3, 2), e_2)
     D = d_1 + d_2
-    print(d_1.shape)
-
-
-
     return D
