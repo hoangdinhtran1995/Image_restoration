@@ -8,4 +8,4 @@ def make_circle(x,y,radius, image_sz = 256):
     return circle
 
 def get_cameraman():
-    return mpimg.imread('/courses/TSBB15/images/cameraman.tif')
+    return mpimg.imread('cameraman.tif')
