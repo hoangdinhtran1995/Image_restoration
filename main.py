@@ -19,9 +19,9 @@ def main():
     m = 1
     """
     delta_s = 0.1
-    epochs = 10
+    epochs = 20
     SNR = 20
-    m = 10
+    m = 1
 
     # img = lab4.make_circle(128,128,64)
     img = lab4.get_cameraman().astype(float)
@@ -60,8 +60,9 @@ def main():
     alpha = 0.95
     lam = 0.01
     visualize = True
+    vis_step = 25
 
-    missing_info = np.random.randint(0, high=3, size=img.shape)
+    missing_info = np.random.randint(0, high=4, size=img.shape)
     missing_info = np.clip(missing_info,0,1)
     img_missing = np.multiply(img, missing_info)
 
@@ -74,10 +75,12 @@ def main():
         u = update_u(u, g, missing_info, alpha, lam, ksize=3, sigma=3)
         u = np.clip(u, 0, 255)
 
-        if i % 30 == 0 and visualize:
-            plt.imshow(u, cmap="gray")
-            plt.title(f"iteration {i}")
-            plt.pause(0.000001)
+        if i % vis_step == 0:
+            print(f"Inpainting... Iteration {i} out of {TV_epochs}, {round(i/TV_epochs*100,2)}%")
+            if visualize:
+                plt.imshow(u, cmap="gray")
+                plt.title(f"iteration {i}")
+                plt.pause(0.000001)
 
     figure1, axes1 = plt.subplots(2,2, constrained_layout=True)
     axes1[0,0].imshow(missing_info, cmap='gray')
@@ -89,8 +92,6 @@ def main():
     axes1[1,1].imshow(u, cmap='gray')
     axes1[1,1].set_title('restored image')
 
-    print(np.max(u))
-    print(np.min(u))
     plt.show()
 
 
